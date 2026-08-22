@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADMIN KING S4LL</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#070707;color:#eee;font-family:Inter,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.top{height:64px;border-bottom:1px solid #202020;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;background:#070707;z-index:20}
+.brand{font-weight:900;letter-spacing:5px;font-size:20px}.brand span{color:#d9a52d}
+.actions{display:flex;gap:8px}.btn{border:1px solid #292929;background:#111;color:#eee;border-radius:10px;padding:10px 14px}.btn:hover{border-color:#d9a52d}.gold{background:#d9a52d;color:#111;border-color:#d9a52d;font-weight:800}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}
+.side{border-right:1px solid #1d1d1d;padding:18px 10px}.nav{display:flex;flex-direction:column;gap:6px}.nav button{background:transparent;border:0;color:#aaa;text-align:left;padding:13px 12px;border-radius:10px}.nav button.active,.nav button:hover{background:#151515;color:#fff}
+.main{padding:28px;max-width:1250px;width:100%;margin:auto}.section{display:none}.section.active{display:block}
+h1{margin:5px 0 8px;font-size:34px}.eyebrow{font-size:11px;letter-spacing:4px;color:#d9a52d;font-weight:900}.muted{color:#888}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.card{background:#101010;border:1px solid #222;border-radius:14px;padding:18px}.stat{font-size:26px;font-weight:900;margin-top:8px}
+.toolbar{display:flex;justify-content:space-between;gap:10px;margin:18px 0;flex-wrap:wrap}.search{background:#0e0e0e;border:1px solid #292929;color:#fff;border-radius:10px;padding:11px 13px;min-width:260px}
+.table-wrap{overflow:auto;border:1px solid #222;border-radius:14px;background:#0c0c0c}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{padding:13px 12px;border-bottom:1px solid #1d1d1d;text-align:left}.table th{color:#999;font-size:12px}.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#181818}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#171717;color:#ccc;font-size:12px}
+.row-actions{display:flex;gap:6px}.small{padding:7px 9px;font-size:12px}.danger{border-color:#5a2424;color:#ff9b9b}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;color:#aaa}.field input,.field select,.field textarea{width:100%;background:#0a0a0a;border:1px solid #303030;color:#fff;border-radius:10px;padding:12px;outline:none}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#d9a52d}
+.login{position:fixed;inset:0;background:#050505;display:grid;place-items:center;z-index:100}.login-box{width:min(420px,92vw);background:#101010;border:1px solid #292929;border-radius:18px;padding:30px}.login-box h1{font-size:28px}.login .field{margin:12px 0}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:80;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(760px,96vw);max-height:92vh;display:flex;flex-direction:column;background:#111;border:1px solid #343434;border-radius:16px;box-shadow:0 25px 80px #000;overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #252525;flex:0 0 auto;background:#111;position:sticky;top:0;z-index:2}.modal-head h2{margin:0;font-size:22px}.close{background:transparent;border:0;color:#fff;font-size:25px}
+.modal-body{padding:20px 22px;overflow-y:auto;overscroll-behavior:contain;flex:1 1 auto;min-height:0}
+.modal-foot{padding:14px 22px;border-top:1px solid #252525;display:flex;justify-content:flex-end;gap:8px;flex:0 0 auto;background:#111;position:sticky;bottom:0;z-index:2}
+.preview{max-width:160px;max-height:110px;border-radius:10px;margin-top:5px;display:none}
+.notice{padding:12px 14px;border:1px solid #282828;background:#0c0c0c;border-radius:10px;color:#aaa;margin-top:10px}
+.list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;background:#101010;border:1px solid #222;border-radius:12px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid #1d1d1d;overflow:auto}.nav{flex-direction:row;min-width:max-content}.main{padding:18px}.stats{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-backdrop{padding:8px}.modal{max-height:96vh}.modal-body{padding:16px}.modal-foot{padding:12px 16px}}
+@media(max-width:480px){.stats{grid-template-columns:1fr}.top{padding:0 12px}.brand{font-size:16px;letter-spacing:3px}}
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+  <div class="login-box">
+    <div class="eyebrow">ADMIN KING S4LL</div>
+    <h1>Masuk Admin</h1>
+    <p class="muted">Panel pengelolaan GTA FORSELL S4LL</p>
+    <div class="field"><label>Email</label><input id="loginEmail" type="email" value="sallganz1100@gmail.com"></div>
+    <div class="field"><label>Password</label><input id="loginPass" type="password" placeholder="Password"></div>
+    <button class="btn gold" style="width:100%;margin-top:8px" onclick="doLogin()">Masuk</button>
+    <div id="loginMsg" class="notice" style="display:none"></div>
+  </div>
+</div>
+
+<header class="top">
+  <div class="brand">NOIR <span>ADMIN</span></div>
+  <div class="actions"><button class="btn" onclick="location.href='index.html'">← Toko</button><button class="btn danger" onclick="logout()">Logout</button></div>
+</header>
+
+<div class="layout">
+<aside class="side">
+  <div class="nav">
+    <button class="active" data-section="dashboard" onclick="showSection('dashboard',this)">▦ Dashboard</button>
+    <button data-section="products" onclick="showSection('products',this)">▣ Produk</button>
+    <button data-section="appearance" onclick="showSection('appearance',this)">◈ Tampilan Toko</button>
+    <button data-section="orders" onclick="showSection('orders',this)">◷ Pesanan</button>
+    <button data-section="members" onclick="showSection('members',this)">♙ Member</button>
+    <button data-section="balance" onclick="showSection('balance',this)">◎ Saldo</button>
+    <button data-section="withdraw" onclick="showSection('withdraw',this)">↧ Tarik Tunai</button>
+  </div>
+</aside>
+
+<main class="main">
+<section id="dashboard" class="section active">
+  <div class="eyebrow">ADMIN PANEL</div><h1>Dashboard</h1><p class="muted">Kelola toko dari satu tempat.</p>
+  <div class="stats">
+    <div class="card"><div class="muted">Produk</div><div id="statProducts" class="stat">0</div></div>
+    <div class="card"><div class="muted">Pesanan</div><div id="statOrders" class="stat">0</div></div>
+    <div class="card"><div class="muted">Member</div><div id="statMembers" class="stat">0</div></div>
+    <div class="card"><div class="muted">Saldo Admin</div><div id="statBalance" class="stat">Rp 0</div></div>
+  </div>
+  <div class="card"><div class="eyebrow">CATATAN</div><p class="muted">Data demo disimpan di localStorage browser. Untuk toko online sungguhan, gunakan backend/database dan payment gateway.</p></div>
+</section>
+
+<section id="products" class="section">
+  <div class="eyebrow">CATALOG MANAGER</div><h1>Kelola Produk</h1><p class="muted">Tambah, edit, update, atau hapus produk.</p>
+  <div class="toolbar"><input id="productSearch" class="search" placeholder="Cari nama produk..." oninput="renderProducts()"><button class="btn gold" onclick="openProduct()">+ Tambah Produk</button></div>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="productRows"></tbody></table></div>
+</section>
+
+<section id="appearance" class="section">
+  <div class="eyebrow">STORE EDITOR</div><h1>Tampilan Toko</h1><p class="muted">Perubahan disimpan di browser dan dapat dibaca oleh halaman toko pada origin yang sama.</p>
+  <div class="card"><div class="formgrid">
+    <div class="field"><label>Nama toko</label><input id="siteName"></div>
+    <div class="field"><label>Teks tombol profil</label><input id="profileText"></div>
+    <div class="field full"><label>Judul utama</label><input id="heroTitle"></div>
+    <div class="field full"><label>Deskripsi utama</label><textarea id="heroDesc"></textarea></div>
+    <div class="field"><label>Placeholder pencarian</label><input id="searchText"></div>
+    <div class="field"><label>Warna aksen</label><input id="accent" type="text" placeholder="#d9a52d"></div>
+  </div><button class="btn gold" style="margin-top:16px" onclick="saveAppearance()">Simpan Tampilan</button></div>
+</section>
+
+<section id="orders" class="section"><div class="eyebrow">ORDER MANAGER</div><h1>Pesanan</h1><p class="muted">Riwayat transaksi yang tersimpan di browser ini.</p><div id="ordersList" class="list"></div></section>
+<section id="members" class="section"><div class="eyebrow">MEMBER MANAGER</div><h1>Member</h1><p class="muted">Daftar member lokal.</p><div id="membersList" class="list"></div></section>
+<section id="balance" class="section"><div class="eyebrow">WALLET</div><h1>Saldo Admin</h1><div class="card"><div class="muted">Saldo tersedia</div><div id="balanceBig" class="stat">Rp 0</div><div class="notice">Saldo ini hanya saldo demo/localStorage. Jangan gunakan untuk dana sungguhan.</div></div></section>
+<section id="withdraw" class="section"><div class="eyebrow">WITHDRAWAL</div><h1>Tarik Tunai</h1><p class="muted">Simulasi penarikan saldo.</p><div class="card"><div class="field"><label>Metode</label><select id="wdMethod"><option>DANA</option><option>OVO</option><option>GoPay</option><option>Bank</option></select></div><div class="field" style="margin-top:12px"><label>Nomor/Rekening</label><input id="wdTarget"></div><div class="field" style="margin-top:12px"><label>Nominal</label><input id="wdAmount" type="number" min="1" placeholder="100000"></div><button class="btn gold" style="margin-top:14px" onclick="withdraw()">Ajukan Penarikan</button><div id="wdMsg" class="notice" style="display:none"></div></div></section>
+</main>
+</div>
+
+<div id="productModal" class="modal-backdrop" onclick="if(event.target===this)closeProduct()">
+  <div class="modal">
+    <div class="modal-head"><div><div class="eyebrow">PRODUCT MANAGER</div><h2 id="modalTitle">Tambah Produk</h2></div><button class="close" onclick="closeProduct()">×</button></div>
+    <div class="modal-body">
+      <div class="formgrid">
+        <div class="field full"><label>Nama Produk</label><input id="pName" placeholder="Contoh: Premium Website Template"></div>
+        <div class="field"><label>Kategori</label><select id="pCategory"></select></div>
+        <div class="field"><label>Harga</label><input id="pPrice" type="number" min="0" placeholder="99000"></div>
+        <div class="field"><label>Status Produk</label><select id="pStatus"><option value="Aktif">Aktif</option><option value="Draft">Draft</option><option value="Nonaktif">Nonaktif</option></select></div>
+        <div class="field"><label>Ikon / Emoji</label><input id="pIcon" placeholder="▣"></div>
+        <div class="field full"><label>Foto Produk (opsional)</label><input id="pImage" type="file" accept="image/*" onchange="previewImage(event)"><img id="preview" class="preview"></div>
+        <div class="field full"><label>Deskripsi</label><textarea id="pDesc" placeholder="Jelaskan produk..."></textarea></div>
+        <div class="field full"><label>Link Download Produk</label><input id="pDownload" placeholder="https://... atau nama file"></div>
+      </div>
+      <div class="notice">Form ini sekarang memiliki area scroll sendiri. Jadi tombol Simpan tetap dapat dijangkau walaupun form panjang.</div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeProduct()">Batal</button><button class="btn gold" onclick="saveProduct()">Simpan Produk</button></div>
+  </div>
+</div>
+
+<script>
+const ADMIN_EMAIL='sallganz1100@gmail.com';
+const ADMIN_PASS='sallganz29';
+const KEY_PRODUCTS='s4ll_products';
+const KEY_APPEAR='s4ll_appearance';
+const KEY_ORDERS='s4ll_orders';
+const KEY_MEMBERS='s4ll_members';
+const KEY_BALANCE='s4ll_balance';
+const KEY_WITHDRAW='s4ll_withdrawals';
+let editId=null, imageData='';
+
+const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)) ?? d}catch{return d}};
+const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const money=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+function doLogin(){
+  const e=document.getElementById('loginEmail').value.trim(), p=document.getElementById('loginPass').value;
+  if(e===ADMIN_EMAIL && p===ADMIN_PASS){localStorage.setItem('s4ll_admin_session','1');document.getElementById('login').style.display='none'}
+  else{const m=document.getElementById('loginMsg');m.style.display='block';m.textContent='Email atau password salah.'}
+}
+function logout(){localStorage.removeItem('s4ll_admin_session');location.reload()}
+function showSection(id,btn){
+  document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(id==='products')renderProducts(); if(id==='orders')renderOrders(); if(id==='members')renderMembers(); if(id==='balance')renderBalance();
+}
+function renderAll(){renderProducts();renderOrders();renderMembers();renderBalance();renderStats();loadAppearance()}
+function renderStats(){document.getElementById('statProducts').textContent=get(KEY_PRODUCTS,[]).length;document.getElementById('statOrders').textContent=get(KEY_ORDERS,[]).length;document.getElementById('statMembers').textContent=get(KEY_MEMBERS,[]).length;document.getElementById('statBalance').textContent=money(get(KEY_BALANCE,0))}
+function renderProducts(){
+  const q=(document.getElementById('productSearch')?.value||'').toLowerCase();
+  const products=get(KEY_PRODUCTS,[]).filter(p=>(p.name||'').toLowerCase().includes(q));
+  const body=document.getElementById('productRows');
+  if(!products.length){body.innerHTML='<tr><td colspan="5" class="muted">Tidak ada produk.</td></tr>';return}
+  body.innerHTML=products.map(p=>`<tr><td><div style="display:flex;gap:10px;align-items:center">${p.image?`<img class="thumb" src="${p.image}">`:`<div class="thumb" style="display:grid;place-items:center">${p.icon||'▣'}</div>`}<div><b>${esc(p.name)}</b><div class="muted" style="font-size:12px">${esc(p.description||'')}</div></div></div></td><td>${esc(p.category||'-')}</td><td>${money(p.price)}</td><td><span class="pill">${esc(p.status||'Aktif')}</span></td><td><div class="row-actions"><button class="btn small" onclick="openProduct('${p.id}')">Edit</button><button class="btn small danger" onclick="deleteProduct('${p.id}')">Hapus</button></div></td></tr>`).join('');
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function openProduct(id){
+  editId=id||null; imageData='';
+  const cats=[...new Set(get(KEY_PRODUCTS,[]).map(p=>p.category).filter(Boolean))]; if(!cats.length)cats.push('GTA FORSELL');
+  document.getElementById('pCategory').innerHTML=cats.map(c=>`<option>${esc(c)}</option>`).join('')+'<option value="__new">+ Kategori baru</option>';
+  const p=get(KEY_PRODUCTS,[]).find(x=>x.id===id);
+  document.getElementById('modalTitle').textContent=p?'Edit Produk':'Tambah Produk';
+  document.getElementById('pName').value=p?.name||'';document.getElementById('pPrice').value=p?.price??99000;document.getElementById('pStatus').value=p?.status||'Aktif';document.getElementById('pIcon').value=p?.icon||'▣';document.getElementById('pDesc').value=p?.description||'';document.getElementById('pDownload').value=p?.download||'';imageData=p?.image||'';
+  document.getElementById('preview').src=imageData||'';document.getElementById('preview').style.display=imageData?'block':'none';
+  document.getElementById('productModal').classList.add('show');
+}
+document.getElementById('pCategory').addEventListener('change',e=>{if(e.target.value==='__new'){const n=prompt('Nama kategori baru:');if(n){const opt=document.createElement('option');opt.textContent=n;opt.value=n;e.target.insertBefore(opt,e.target.lastElementChild);e.target.value=n}else e.target.selectedIndex=0}});
+function previewImage(ev){const f=ev.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{imageData=r.result;const p=document.getElementById('preview');p.src=imageData;p.style.display='block'};r.readAsDataURL(f)}
+function closeProduct(){document.getElementById('productModal').classList.remove('show')}
+function saveProduct(){
+  const name=document.getElementById('pName').value.trim(); if(!name)return alert('Nama produk wajib diisi.');
+  let products=get(KEY_PRODUCTS,[]);
+  const item={id:editId||uid(),name,category:document.getElementById('pCategory').value,price:Number(document.getElementById('pPrice').value)||0,status:document.getElementById('pStatus').value,icon:document.getElementById('pIcon').value||'▣',image:imageData,description:document.getElementById('pDesc').value.trim(),download:document.getElementById('pDownload').value.trim(),updatedAt:new Date().toISOString()};
+  const i=products.findIndex(p=>p.id===item.id);if(i>=0)products[i]=item;else products.unshift(item);
+  set(KEY_PRODUCTS,products);closeProduct();renderAll();alert('Produk berhasil disimpan.');
+}
+function deleteProduct(id){if(!confirm('Hapus produk ini?'))return;set(KEY_PRODUCTS,get(KEY_PRODUCTS,[]).filter(p=>p.id!==id));renderAll()}
+function loadAppearance(){
+  const a=get(KEY_APPEAR,{siteName:'GTA FORSELL S4LL',profileText:'Profil',heroTitle:'Simple. Dark. Exceptional.',heroDesc:'Premium digital products untuk kebutuhan kamu.',searchText:'Cari produk...',accent:'#d9a52d'});
+  for(const k of ['siteName','profileText','heroTitle','heroDesc','searchText','accent'])if(document.getElementById(k))document.getElementById(k).value=a[k]||'';
+}
+function saveAppearance(){
+  const a={};for(const k of ['siteName','profileText','heroTitle','heroDesc','searchText','accent'])a[k]=document.getElementById(k).value.trim();
+  set(KEY_APPEAR,a);alert('Tampilan toko berhasil disimpan.');
+}
+function renderOrders(){
+  const x=get(KEY_ORDERS,[]), el=document.getElementById('ordersList');el.innerHTML=x.length?x.map(o=>`<div class="item"><div><b>${esc(o.product||o.name||'Pesanan')}</b><div class="muted">${esc(o.email||'')} · ${money(o.amount||o.total)}</div></div><span class="pill">${esc(o.status||'Selesai')}</span></div>`).join(''):'<div class="card muted">Belum ada pesanan.</div>';
+}
+function renderMembers(){
+  const x=get(KEY_MEMBERS,[]), el=document.getElementById('membersList');el.innerHTML=x.length?x.map(m=>`<div class="item"><div><b>${esc(m.name||m.email||'Member')}</b><div class="muted">${esc(m.email||'')}</div></div><span class="pill">Member</span></div>`).join(''):'<div class="card muted">Belum ada member.</div>';
+}
+function renderBalance(){const b=get(KEY_BALANCE,0);document.getElementById('balanceBig').textContent=money(b)}
+function withdraw(){
+  const amount=Number(document.getElementById('wdAmount').value)||0,target=document.getElementById('wdTarget').value.trim(),method=document.getElementById('wdMethod').value,msg=document.getElementById('wdMsg');
+  const b=Number(get(KEY_BALANCE,0));if(!target||amount<=0)return alert('Lengkapi data penarikan.');if(amount>b)return alert('Saldo tidak mencukupi.');
+  set(KEY_BALANCE,b-amount);const ws=get(KEY_WITHDRAW,[]);ws.unshift({id:uid(),method,target,amount,status:'Diproses',createdAt:new Date().toISOString()});set(KEY_WITHDRAW,ws);msg.style.display='block';msg.textContent=`Permintaan penarikan ${money(amount)} ke ${method} telah dicatat (demo).`;renderAll();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProduct()});
+if(localStorage.getItem('s4ll_admin_session')==='1')document.getElementById('login').style.display='none';
+renderAll();
+</script>
+</body>
+</html>
