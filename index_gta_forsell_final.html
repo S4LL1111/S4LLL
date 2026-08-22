@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GTA FORSELL S4LL</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#070707;color:#fff;font-family:Inter,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+:root{--accent:#d9a52d}.nav{height:76px;border-bottom:1px solid #262626;display:flex;align-items:center;padding:0 6%;gap:22px;position:sticky;top:0;background:#080808ee;backdrop-filter:blur(12px);z-index:20}.logo{font-size:22px;font-weight:900;letter-spacing:4px;white-space:nowrap}.logo span{color:var(--accent)}.search{flex:1;max-width:520px;margin:auto}.search input{width:100%;padding:14px 18px;border:1px solid #303030;border-radius:12px;background:#111;color:#fff;outline:none}.search input:focus{border-color:var(--accent)}.actions{display:flex;gap:8px}.btn{border:1px solid #333;background:#151515;color:#fff;border-radius:11px;padding:11px 14px}.btn:hover{border-color:var(--accent)}.gold{border-color:var(--accent);color:#f3c85a}.danger{border-color:#642d2d;color:#ff9b9b}
+.hero{padding:70px 7% 35px;background:radial-gradient(circle at 70% 20%,#211b0d,transparent 35%)}.eyebrow{color:#e6b94e;letter-spacing:4px;font-weight:800;font-size:12px}.hero h1{font-size:clamp(48px,8vw,94px);line-height:.92;margin:16px 0}.hero p{color:#a7a7a7;max-width:700px}.wrap{padding:20px 7% 70px}.cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px}.cat{padding:10px 16px;border:1px solid #303030;border-radius:10px;background:#111;color:#ddd}.cat.active,.cat:hover{border-color:var(--accent);color:#f3c85a}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#111;border:1px solid #292929;border-radius:18px;overflow:hidden}.pic{height:240px;background:linear-gradient(135deg,#292929,#111);display:flex;align-items:center;justify-content:center;font-size:58px;overflow:hidden}.pic img{width:100%;height:100%;object-fit:cover}.info{padding:18px}.muted{color:#8f8f8f;font-size:13px}.price{font-size:20px;font-weight:800;margin:8px 0 15px}.row{display:flex;gap:8px}.row .btn{flex:1}.empty{grid-column:1/-1;padding:35px;text-align:center;border:1px dashed #303030;border-radius:16px;color:#888}.footer{border-top:1px solid #252525;padding:30px 7%;color:#777;font-size:13px}
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:10px;z-index:50}.backdrop.show{display:flex}.modal{width:min(720px,96vw);max-height:94vh;background:#111;border:1px solid #343434;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 25px 80px #000}.modal-head{padding:18px 22px;border-bottom:1px solid #252525;display:flex;justify-content:space-between;align-items:center;flex:0 0 auto}.modal-head h2{margin:0}.modal-body{padding:20px 22px;overflow-y:auto;min-height:0}.modal-foot{padding:14px 22px;border-top:1px solid #252525;display:flex;justify-content:flex-end;gap:8px;flex:0 0 auto}.close{background:none;border:0;color:#fff;font-size:25px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:13px}.field label{font-size:13px;color:#aaa}.field input,.field textarea,.field select{width:100%;background:#0a0a0a;border:1px solid #303030;color:#fff;border-radius:10px;padding:12px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent)}.notice{padding:12px 14px;border:1px solid #282828;background:#0c0c0c;border-radius:10px;color:#aaa;margin-top:10px}.cart-item,.order-item{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid #252525}.cart-left{display:flex;gap:12px;align-items:center}.mini{width:54px;height:54px;border-radius:10px;object-fit:cover;background:#1b1b1b;display:grid;place-items:center;font-size:24px}.total{display:flex;justify-content:space-between;padding-top:16px;font-weight:800}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.download{display:inline-block;margin-top:10px}.hidden{display:none}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.nav{padding:0 4%;gap:10px}.search{display:none}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:45px 5% 20px}.wrap{padding:20px 5%}.logo{font-size:16px;letter-spacing:3px}.profile-btn{display:none}.profile-grid{grid-template-columns:1fr}.modal-body{padding:16px}.modal-foot{padding:12px 16px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="logo">GTA <span>FORSELL S4LL</span></div>
+  <div class="search"><input id="searchInput" placeholder="Cari produk..." oninput="searchProducts(this.value)"></div>
+  <div class="actions">
+    <button class="btn profile-btn" onclick="openProfile()">Profil Member</button>
+    <button class="btn" onclick="openCart()">🛒 <span id="count">0</span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">GTA FORSELL S4LL</div>
+  <h1 id="heroTitle">Selamat<br>Datang</h1>
+  <p id="heroDesc">Premium digital products untuk kebutuhan kamu.</p>
+</section>
+
+<main class="wrap">
+  <div class="cats" id="cats"></div>
+  <div class="grid" id="products"></div>
+</main>
+
+<footer class="footer">© 2026 <span id="footerName">GTA FORSELL S4LL</span> · ADMIN KING S4LL</footer>
+
+<div id="modal" class="backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">GTA FORSELL S4LL</h2><button class="close" onclick="closeModal()">×</button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"><button class="btn" onclick="closeModal()">Tutup</button></div>
+  </div>
+</div>
+
+<script>
+const K={products:'s4ll_products',categories:'s4ll_categories',appear:'s4ll_appearance',members:'s4ll_members',orders:'s4ll_orders',cart:'s4ll_cart',current:'s4ll_current_member'};
+const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const money=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+let products=[],shown=[],cartItems=get(K.cart,[]);
+
+function appearance(){
+  const a=get(K.appear,{siteName:'GTA FORSELL S4LL',profileText:'Profil Member',heroTitle:'Selamat\nDatang',heroDesc:'JIKALAU ADA KENDALA BISA HUBUNGI DISCORD S4LL DISCORD : @Sally666',searchText:'Cari produk...',accent:'#d9a52d'});
+  document.title=a.siteName||'GTA FORSELL S4LL';
+  document.querySelector('.logo').innerHTML='GTA <span>'+esc(a.siteName||'GTA FORSELL S4LL').replace(/^GTA FORSELL S4LL$/,'FORSELL S4LL')+'</span>';
+  document.getElementById('heroTitle').innerHTML=esc(a.heroTitle||'Selamat\nDatang').replace(/\n/g,'<br>');
+  document.getElementById('heroDesc').textContent=a.heroDesc||'';
+  document.getElementById('searchInput').placeholder=a.searchText||'Cari produk...';
+  document.getElementById('footerName').textContent=a.siteName||'GTA FORSELL S4LL';
+  document.querySelector('.profile-btn').textContent=a.profileText||'Profil Member';
+  document.documentElement.style.setProperty('--accent',a.accent||'#d9a52d');
+}
+function loadProducts(){
+  products=get(K.products,[]).filter(p=>(p.status||'Aktif')==='Aktif');
+  shown=[...products]; buildCats(); render(); updateCount();
+}
+function buildCats(active='all'){
+  let cats=get(K.categories,[]);
+  if(!Array.isArray(cats)||!cats.length){
+    cats=[...new Set(products.map(p=>p.category).filter(Boolean))];
+    if(!cats.length)cats=['GTA FORSELL'];
+    set(K.categories,cats);
+  }
+  // Kategori dikelola dari ADMIN KING S4LL dan tetap tampil walau belum ada produk aktif.
+  document.getElementById('cats').innerHTML='<button class="cat '+(active==='all'?'active':'')+'" onclick="filterCategory(\'all\',this)">Semua</button>'+
+    cats.map(c=>'<button class="cat '+(active===c?'active':'')+'" onclick="filterCategory('+JSON.stringify(c)+',this)">'+esc(c)+'</button>').join('');
+}
+function render(){
+  const el=document.getElementById('products');
+  if(!shown.length){el.innerHTML='<div class="empty">Belum ada produk aktif. Produk dapat ditambahkan dari ADMIN KING S4LL.</div>';return}
+  el.innerHTML=shown.map(p=>`<article class="card">
+    <div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:(p.icon||'▣')}</div>
+    <div class="info"><div class="muted">${esc(p.category||'-')}</div><h3>${esc(p.name)}</h3><div class="price">${money(p.price)}</div>
+    <div class="row"><button class="btn" onclick="buy(${JSON.stringify(p.id)})">Beli</button><button class="btn gold" onclick="addCart(${JSON.stringify(p.id)})">+ Keranjang</button></div></div>
+  </article>`).join('');
+}
+function filterCategory(c,btn){shown=c==='all'?[...products]:products.filter(p=>p.category===c);document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');render()}
+function searchProducts(q){q=q.toLowerCase();shown=products.filter(p=>(p.name||'').toLowerCase().includes(q)||(p.category||'').toLowerCase().includes(q)||(p.description||'').toLowerCase().includes(q));buildCats();render()}
+function addCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;cartItems.push({id:p.id,name:p.name,price:Number(p.price)||0,image:p.image||'',icon:p.icon||'▣'});set(K.cart,cartItems);updateCount()}
+function updateCount(){document.getElementById('count').textContent=cartItems.length}
+function removeCart(i){cartItems.splice(i,1);set(K.cart,cartItems);openCart()}
+function currentMember(){return get(K.current,null)}
+function memberLogin(name,email){
+  name=name.trim();email=email.trim().toLowerCase();
+  if(!name||!email)return false;
+  let members=get(K.members,[]);let m=members.find(x=>x.email===email);
+  if(!m){m={id:uid(),name,email,balance:0,createdAt:new Date().toISOString()};members.push(m)}
+  else{m.name=name}
+  set(K.members,members);set(K.current,m);return true;
+}
+function openProfile(){
+  const m=currentMember();
+  document.getElementById('modalTitle').textContent='Profil Member';
+  document.getElementById('modalBody').innerHTML=m?`
+    <div class="profile-grid"><div class="field"><label>Nama</label><input id="mName" value="${esc(m.name)}"></div><div class="field"><label>Email</label><input id="mEmail" value="${esc(m.email)}"></div></div>
+    <div class="notice">Saldo member: <b>${money(m.balance||0)}</b></div>
+    <h3>Riwayat Pesanan</h3><div id="myOrders">${renderMyOrders(m.email)}</div>`:
+    `<div class="field"><label>Nama</label><input id="mName" placeholder="Nama kamu"></div><div class="field"><label>Email</label><input id="mEmail" type="email" placeholder="email@contoh.com"></div><div class="notice">Profil disimpan di browser yang kamu gunakan agar pesanan dan akun tetap terhubung.</div>`;
+  document.getElementById('modalFoot').innerHTML=`<button class="btn" onclick="closeModal()">Tutup</button><button class="btn gold" onclick="saveProfile()">Simpan Profil</button>`;
+  showModal();
+}
+function saveProfile(){
+  const name=document.getElementById('mName').value,email=document.getElementById('mEmail').value;
+  if(!memberLogin(name,email))return alert('Nama dan email wajib diisi.');
+  openProfile();
+}
+function renderMyOrders(email){
+  const orders=get(K.orders,[]).filter(o=>o.email===email).reverse();
+  if(!orders.length)return '<div class="muted">Belum ada pesanan.</div>';
+  return orders.map(o=>`<div class="order-item"><div><b>${esc(o.product||'Pesanan')}</b><div class="muted">${new Date(o.createdAt).toLocaleString('id-ID')} · ${money(o.amount)}</div></div><span>${esc(o.status||'Diproses')}</span></div>`).join('');
+}
+function buy(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;cartItems=[{id:p.id,name:p.name,price:Number(p.price)||0,image:p.image||'',icon:p.icon||'▣'}];set(K.cart,cartItems);openCheckout()}
+function openCart(){
+  document.getElementById('modalTitle').textContent='Keranjang';
+  document.getElementById('modalBody').innerHTML=cartItems.length?cartItems.map((x,i)=>`<div class="cart-item"><div class="cart-left"><div class="mini">${x.image?`<img src="${esc(x.image)}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`:esc(x.icon)}</div><div><b>${esc(x.name)}</b><div class="muted">${money(x.price)}</div></div></div><button class="btn danger" onclick="removeCart(${i})">Hapus</button></div>`).join('')+`<div class="total"><span>Total</span><span>${money(cartItems.reduce((s,x)=>s+Number(x.price||0),0))}</span></div>`:'<div class="notice">Keranjang masih kosong.</div>';
+  document.getElementById('modalFoot').innerHTML=`<button class="btn" onclick="closeModal()">Tutup</button>${cartItems.length?'<button class="btn gold" onclick="openCheckout()">Lanjut Checkout</button>':''}`;
+  showModal();
+}
+function openCheckout(){
+  const m=currentMember();
+  if(!cartItems.length)return openCart();
+  document.getElementById('modalTitle').textContent='Checkout';
+  document.getElementById('modalBody').innerHTML=`<div class="field"><label>Nama Member</label><input id="cName" value="${esc(m?.name||'')}"></div><div class="field"><label>Email</label><input id="cEmail" type="email" value="${esc(m?.email||'')}"></div><div class="field"><label>Metode Pembayaran</label><select id="cMethod"><option>QRIS</option><option>DANA</option><option>OVO</option><option>GoPay</option><option>Transfer Bank</option></select></div><div class="notice">Total pembayaran: <b>${money(cartItems.reduce((s,x)=>s+Number(x.price||0),0))}</b></div>`;
+  document.getElementById('modalFoot').innerHTML='<button class="btn" onclick="openCart()">Kembali</button><button class="btn gold" onclick="placeOrder()">Buat Pesanan</button>';
+  showModal();
+}
+function placeOrder(){
+  const name=document.getElementById('cName').value.trim(),email=document.getElementById('cEmail').value.trim().toLowerCase(),method=document.getElementById('cMethod').value;
+  if(!name||!email)return alert('Nama dan email wajib diisi.');
+  memberLogin(name,email);
+  const orders=get(K.orders,[]),now=new Date().toISOString();
+  cartItems.forEach(x=>orders.push({id:uid(),product:x.name,productId:x.id,email,memberName:name,amount:Number(x.price)||0,method,status:'Menunggu Pembayaran',createdAt:now}));
+  set(K.orders,orders);cartItems=[];set(K.cart,[]);updateCount();
+  document.getElementById('modalTitle').textContent='Pesanan Berhasil';
+  document.getElementById('modalBody').innerHTML='<div class="notice">Pesanan sudah tercatat. Admin dapat melihat dan memprosesnya dari ADMIN KING S4LL.</div>';
+  document.getElementById('modalFoot').innerHTML='<button class="btn gold" onclick="closeModal()">Selesai</button>';
+}
+function showModal(){document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+window.addEventListener('storage',()=>{appearance();loadProducts()});
+window.addEventListener('focus',()=>{appearance();loadProducts()});
+appearance();loadProducts();
+</script>
+</body>
+</html>
